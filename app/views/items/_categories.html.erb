@@ -1,0 +1,38 @@
+<h4>
+  Categories
+</h4>
+
+<div id="availableCategoriesContainer" <% if @available_categories.empty? %> style="display: none;"<% end %>>
+  <select id="categoryToAdd">
+    <% @available_categories.each do |category| %>
+      <option value="<%= category.id %>"><%= category.name %></option>
+      <br/>
+    <% end %>
+  </select>
+
+  <input type="button" value="Add" onclick="addCategory()" class="btn btn-fix"/>
+</div>
+
+<%= content_tag "table", id: "addedCategoriesTable", :class => 'table', 
+    data: { categories: Category.all } do %>
+  
+  <tr>
+      <th>Category</th>
+      <th>Options</th>
+  </tr>
+  
+  <tr id="categoryLineTemplate" class="template">
+      <input type="hidden" name="" value="" />
+      <td>Name</td>
+      <td><%= link_to_function '', "removeCategory('Are you sure you want to dissociate this category?', #category_id#)", :class => 'icon-remove' %></td>
+  <tr/>
+
+  <% @inserted_categories.each do |category| %>
+    <tr id="categoryLineTemplate<%= category.id %>">
+      <input type="hidden" name="insertedCategories[]" value="<%= category.id %>" />
+      <td><%= category.name %></td>
+      <td><%= link_to_function '', "removeCategory('Are you sure you want to dissociate this category?', #{category.id})", :class => 'icon-remove' %></td>
+    <tr/>
+  <% end %>
+                                    
+<% end %>

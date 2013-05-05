@@ -1,0 +1,61 @@
+<h4>
+  Properties
+</h4>
+
+
+<div id="availablePropertyRangesContainer" <% if @available_properties.empty? %> style="display: none;"<% end %>>
+  <select id="propertyRangeToAdd" onchange="refreshUnitText()">
+    <% @available_properties.each do |property| %>
+      <option value="<%= property.id %>"><%= property.name %></option>
+      <br/>
+    <% end %>
+  </select>
+
+  <br />
+  Exact value: <input id="propertyValueExact" type="text" class="input-small" /><br />
+  Minimum value: <input id="propertyValueMin" type="text" class="input-small" /><br />
+  Maximum value: <input id="propertyValueMax" type="text" class="input-small" /><br />
+
+  <p id="propertyType" style="display: inline;"></p>   
+  <input type="button" value="Add" onclick="addPropertyRange()" class="btn btn-fix"/>
+  <p id="invalidValueError">Value not allowed!</p>
+</div>
+
+
+
+<%= content_tag "table", id: "addedPropertyRangesTable", :class => 'table', 
+    data: { properties: Property.all } do %>
+  
+  <tr>
+      <th>Property</th>
+      <th>Exact value</th>
+      <th>Min. value</th>
+      <th>Max. value</th>
+      <th>Options</th>
+  </tr>
+  
+  <tr id="propertyRangeLineTemplate" class="template">
+      <input type="hidden" name="" value="" />
+      <input type="hidden" name="" value="" />
+      <input type="hidden" name="" value="" />
+      <td>Name</td>
+      <td>Exact value</td>
+      <td>Minimum value</td>
+      <td>Maximum value</td>
+      <td><%= link_to_function '', "removePropertyRange('Are you sure you want to dissociate this property range?', #property_id#)", :class => 'icon-remove' %></td>
+  <tr/>
+
+  <% @inserted_properties.keys.each do |property| %>
+    <tr id="propertyRangeLineTemplate<%= property.id %>">
+      <input type="hidden" name="insertedProperties[<%= property.id %>][exact]" value="<%= @inserted_properties[property][:exact] %>" />
+      <input type="hidden" name="insertedProperties[<%= property.id %>][min]" value="<%= @inserted_properties[property][:min] %>" />
+      <input type="hidden" name="insertedProperties[<%= property.id %>][max]" value="<%= @inserted_properties[property][:max] %>" />
+      <td><%= property.name %></td>
+      <td><%= @inserted_properties[property][:exact] %></td>
+      <td><%= @inserted_properties[property][:min] %></td>
+      <td><%= @inserted_properties[property][:max] %></td>
+      <td><%= link_to_function '', "removePropertyRange('Are you sure you want to dissociate this property?', #{property.id})", :class => 'icon-remove' %></td>
+    <tr/>
+  <% end %>
+                                    
+<% end %>

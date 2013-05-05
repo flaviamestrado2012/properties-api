@@ -1,0 +1,23 @@
+development:
+  adapter: mysql2
+  database: spin_development
+  encoding: utf8
+  username: root
+  password: ruipedro
+  host: localhost
+
+test:
+  adapter: mysql2
+  database: spin_test
+  encoding: utf8
+  username: root
+  password: ruipedro
+  host: localhost
+
+production:
+  adapter: mysql2
+  database: spin_production
+  encoding: utf8
+  username: root
+  password: ruipedro
+  host: localhost

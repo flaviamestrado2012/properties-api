@@ -1,0 +1,8 @@
+<h2>Profile</h2>
+
+<p><%= @profile.name %></p>
+<p><%= @profile.description %></p>
+
+<%= link_to "Edit Profile", edit_profile_path(@profile), :class => 'btn btn-primary' %>
+<%= link_to "Delete Profile", @profile, :method => :delete, :class => 'btn btn-danger',
+    :data => { :confirm => 'Are you sure you want to delete this profile?' } %>

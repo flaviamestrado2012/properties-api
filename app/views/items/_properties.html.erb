@@ -1,0 +1,46 @@
+<h4>
+  Properties
+</h4>
+
+  
+<div id="availablePropertiesContainer" <% if @available_properties.empty? %> style="display: none;"<% end %>>
+  <select id="propertyToAdd" onchange="refreshUnitText()">
+    <% @available_properties.each do |property| %>
+      <option value="<%= property.id %>"><%= property.name %></option>
+      <br/>
+    <% end %>
+  </select>
+
+  <input id="propertyValue" type="text" class="input-small" />
+  <p id="propertyType" style="display: inline;"></p>   
+  <input type="button" value="Add" onclick="addProperty()" class="btn btn-fix"/>
+  <p id="invalidValueError">Value not allowed!</p>
+</div>
+
+
+<%= content_tag "table", id: "addedPropertiesTable", :class => 'table', 
+    data: { properties: Property.all } do %>
+  
+  <tr>
+      <th>Property</th>
+      <th>Value</th>
+      <th>Options</th>
+  </tr>
+  
+  <tr id="propertyLineTemplate" class="template">
+      <input type="hidden" name="" value="" />
+      <td>Name</td>
+      <td>Value</td>
+      <td><%= link_to_function '', "removeProperty('Are you sure you want to dissociate this property?', #property_id#)", :class => 'icon-remove' %></td>
+  <tr/>
+
+  <% @inserted_properties.each_key do |property| %>
+    <tr id="propertyLineTemplate<%= property.id %>">
+      <input type="hidden" name="insertedProperties[<%= property.id %>]" value="<%= @inserted_properties[property] %>" />
+      <td><%= property.name %></td>
+      <td><%= @inserted_properties[property] %></td>
+      <td><%= link_to_function '', "removeProperty('Are you sure you want to dissociate this property?', #{property.id})", :class => 'icon-remove' %></td>
+    <tr/>
+  <% end %>
+                                    
+<% end %>

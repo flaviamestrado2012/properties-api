@@ -1,0 +1,30 @@
+<%= form_for @profile do |f| %>
+<% if @profile.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@profile.errors.count, "error") %> prohibited this profile from being saved:</h2>
+
+      <ul>
+      <% @profile.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+	<p>
+		<%= f.label :name, "Profile name" %>
+		<%= f.text_field :name %>
+	</p>
+	
+	<p>
+		<%= f.label :description, "Description" %>
+		<%= f.text_area :description, :size => "50x6", :class => 'span12' %>
+	</p>
+
+  <hr />
+
+    <%= render "properties" %>
+	
+	<%= f.submit :class => 'btn btn-success' %>
+	<%= link_to 'Cancel', profiles_path, :data => { :confirm => 'Are you sure you want to leave this page?' }, :class => 'btn btn-danger' %>
+
+<% end %>

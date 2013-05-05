@@ -1,0 +1,34 @@
+<h2>Properties</h2>
+
+<hr />
+
+<%= link_to "New Property", new_property_path, :class => 'btn btn-primary' %>
+
+<br /><br />
+
+<% if @properties.any? %>
+    <table class="table table-striped">
+        <tr>            
+            <th>Name</th>
+            <th>Type</th>
+            <th>Units</th>
+            <th colspan="3">Options</th>
+        </tr>
+    
+        <% @properties.each do |property| %>
+            <tr>                
+                <td><%= property.name %></td>
+                <td><%= property.value_type %></td>
+                <td><%= property.unit.name %></td>
+                <td><%= link_to '', property_path(property), :class => 'icon-eye-open' %></td>
+                <td><%= link_to '', edit_property_path(property), :class => 'icon-pencil' %></td>
+                <td><%= link_to '', property, :method => :delete, 
+                        :data => { :confirm => "Are you sure you want to delete this property?" }, :class => 'icon-remove' %></td>
+
+            </tr>
+        <% end %>
+    
+    </table>
+<% else %>
+    <p>There are no properties yet.</p>
+<% end %>

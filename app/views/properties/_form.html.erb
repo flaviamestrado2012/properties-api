@@ -1,0 +1,36 @@
+<%= form_for(@property) do |f| %>
+<% if @property.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@property.errors.count, "error") %> prohibited this property from being saved:</h2>
+
+      <ul>
+      <% @property.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+	<p>
+		<%= f.label :name, "Property name" %>
+		<%= f.text_field :name %>
+	</p>
+	
+	<p>
+		<%= f.label :description, "Description" %>
+		<%= f.text_area :description, :size => "50x6", :class => 'span12' %>
+	</p>
+	
+	<p>
+		<%= f.label :value_type, "Value Type" %>
+		<%= f.select :value_type, @possible_types %>
+	</p>
+	
+	<p>
+		<%= f.label :unit, "Unit" %>
+    <%= f.select :unit_id, Unit.all.collect { |unit| [unit.name, unit.id] } %>
+	</p>
+	
+	<%= f.submit :class => 'btn btn-success' %>
+	<%= link_to 'Cancel', properties_path, :data => { :confirm => 'Are you sure you want to leave this page?' }, :class => 'btn btn-danger' %>
+
+<% end %>

@@ -1,0 +1,42 @@
+<%= form_for @item do |f| %>
+
+    <% if @item.errors.any? %>
+        <div id="error_explanation">
+        	<h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
+
+        	<ul>
+        		<% @item.errors.full_messages.each do |msg| %>
+        		<li>
+        			<%= msg %>
+        		</li>
+        		<% end %>
+        	</ul>
+        </div>
+    <% end %>
+    
+    <p>
+    	<%= f.label :name, "Item name" %>
+    	<%= f.text_field :name %>
+    </p>
+
+    <p>
+    	<%= f.label :description, "Description" %>
+    	<%= f.text_area :description, :size => "50x6", :class => 'span12' %>
+    </p>
+
+    <p>
+        <%= f.label :barcode, "Barcode:" %>
+        <%= f.text_field :barcode %>
+    </p>
+    
+    <hr />
+
+    <%= render "categories" %>
+    
+    <hr />
+
+    <%= render "properties" %>
+
+    <%= f.submit 'Save', :class => 'btn btn-success' %>
+    <%= link_to 'Cancel', items_path, :data => { :confirm => 'Are you sure you want to leave this page?' }, :class => 'btn btn-danger' %>
+<% end %>

@@ -1,0 +1,33 @@
+<%= form_for(@category) do |f| %>
+<% if @category.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@category.errors.count, "error") %> prohibited this category from being saved:</h2>
+
+      <ul>
+      <% @category.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+	<p>
+		<%= f.label :name, "Category name" %>
+		<%= f.text_field :name %>
+	</p>
+
+ 
+    <p>
+      <%= f.label :parent_id, "Parent category" %>
+      <%= f.collection_select :parent_id, @available_categories, :id, :name, {:include_blank => "Select parent category..."} %>
+    </p>
+
+	
+	<p>
+		<%= f.label :description, "Description" %>
+		<%= f.text_area :description, :size => "50x6", :class => 'span12' %>
+	</p>  
+  	
+	<%= f.submit :class => 'btn btn-success' %>
+	<%= link_to 'Cancel', categories_path, :data => { :confirm => 'Are you sure you want to leave this page?'}, :class => 'btn btn-danger' %>
+
+<% end %>

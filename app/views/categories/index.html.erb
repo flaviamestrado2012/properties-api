@@ -1,0 +1,34 @@
+<h2>Categories</h2>
+
+<hr />
+
+<%= link_to "New Category", new_category_path, :class => 'btn btn-primary' %>
+
+<br /><br />
+
+<% if @categories.any? %>
+    <table class="table table-striped">
+        <tr>            
+            <th>Name</th>
+            <th>Parent</th>
+            <th>Description</th>
+            <th colspan="3">Options</th>
+        </tr>
+    
+        <% @categories.each do |category| %>
+            <tr>                
+                <td><%= category.name %></td>
+                <td><%= category.parent.name if category.parent %></td>
+                <td><%= category.description %></td>
+                <td><%= link_to '', category_path(category), :class => 'icon-eye-open' %></td>
+                <td><%= link_to '', edit_category_path(category), :class => 'icon-pencil' %></td>
+                <td><%= link_to '', category, :method => :delete, 
+                :data => { :confirm => "Are you sure you want to delete this category?" }, :class => 'icon-remove' %></td>
+
+            </tr>
+        <% end %>
+    
+    </table>
+<% else %>
+    <p>There are no categories yet.</p>
+<% end %>

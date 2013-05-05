@@ -1,0 +1,10 @@
+<h2>Property</h2>
+
+<p><%= @property.name %></p>
+<p><%= @property.description %></p>
+<p><%= @property.value_type %></p>
+<p><%= @property.unit %></p>
+
+<%= link_to "Edit Property", edit_property_path(@property), :class => 'btn btn-primary' %>
+<%= link_to "Delete Property", @property, :method => :delete, :class => 'btn btn-danger',
+    :data => { :confirm => 'Are you sure you want to delete this property?' } %>

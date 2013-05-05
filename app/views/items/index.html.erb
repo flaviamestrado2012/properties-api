@@ -1,0 +1,31 @@
+<h2>Items</h2>
+
+<hr />
+
+<%= link_to "New Item", new_item_path, :class => 'btn btn-primary' %>
+
+<br /><br />
+
+<% if @items.any? %>
+    <table class="table table-striped">
+        <tr>            
+            <th>Name</th>
+            <th>Description</th>            
+            <th colspan="3">Options</th>
+        </tr>
+    
+        <% @items.each do |item| %>
+            <tr>                
+                <td><%= item.name %></td>
+                <td><%= item.description %></td>                
+                <td><%= link_to '', item_path(item), :class => 'icon-eye-open' %></td>
+                <td><%= link_to '', edit_item_path(item), :class => 'icon-pencil' %></td>
+                <td><%= link_to '', item, :method => :delete,
+      :data => { :confirm => "Are you sure you want to delete this item?" }, :class => 'icon-remove' %></td>
+            </tr>
+        <% end %>
+    
+    </table>
+<% else %>
+    <p>There are no items yet.</p>
+<% end %>
